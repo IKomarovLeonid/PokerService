@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Src.View;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Src.Controllers
 {
@@ -6,15 +8,21 @@ namespace API.Src.Controllers
     public class GamesController : ControllerBase
     {
         [HttpGet("{id}")]
-        public ActionResult<string> Get(ulong id)
+        public async Task<ActionResult<GameViewModel>> GetAsync(ulong id)
         {
-            return Ok($"Game '{id}'");
+            return Ok(new GameViewModel() { Id = id});
         }
 
         [HttpPost]
-        public ActionResult<string> Post(string game)
+        public async Task<ActionResult<string>> PostAsync(string game)
         {
             return Ok($"Game '{game}' has been created");
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> PutAsync(ulong game)
+        {
+            return Ok($"Game '{game}' has new card");
         }
     }
 }
